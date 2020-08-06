@@ -1,6 +1,6 @@
 package de.comparus.opensource.longmap;
 
-import java.lang.reflect.Array;
+import java.util.Arrays;
 
 @SuppressWarnings("unchecked")
 public class LongMapImpl<V> implements LongMap<V> {
@@ -104,18 +104,16 @@ public class LongMapImpl<V> implements LongMap<V> {
     }
 
     public V[] values() {
-        V[] result = null;
+        Object[] arr = new Object[size];
         int index = 0;
         for (Node<Long, V> nodes : backeds) {
             Node<Long, V> node = nodes;
             while (node != null) {
-                if (result == null)
-                    result = (V[]) Array.newInstance(node.getValue().getClass(), size);
-                result[index++] = node.getValue();
+                arr[index++] = node.getValue();
                 node = node.getNext();
             }
         }
-        return result;
+        return (V[]) Arrays.copyOf(arr, size);
     }
 
     public long size() {

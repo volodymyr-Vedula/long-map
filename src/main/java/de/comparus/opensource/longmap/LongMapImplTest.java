@@ -91,6 +91,16 @@ class LongMapImplTest {
     }
 
     @Test
+    void nullValues() {
+        map.put(1,null);
+        map.put(2,null);
+        map.put(3,null);
+        map.put(4,null);
+        Integer[] expected = {null,null,null,null};
+        assertArrayEquals(expected, map.values());
+    }
+
+    @Test
     void size() {
         assertEquals(0,map.size());
         map.put(1,1);
