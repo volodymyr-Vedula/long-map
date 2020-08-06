@@ -104,11 +104,13 @@ public class LongMapImpl<V> implements LongMap<V> {
     }
 
     public V[] values() {
-        V[] result = (V[]) Array.newInstance(backeds[1].getValue().getClass(), size);
+        V[] result = null;
         int index = 0;
         for (Node<Long, V> nodes : backeds) {
             Node<Long, V> node = nodes;
             while (node != null) {
+                if (result == null)
+                    result = (V[]) Array.newInstance(node.getValue().getClass(), size);
                 result[index++] = node.getValue();
                 node = node.getNext();
             }
