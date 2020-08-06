@@ -19,7 +19,7 @@ public class LongMapImpl<V> implements LongMap<V> {
 
     public V put(long key, V value) {
         Node<Long, V> node = new Node<>(key, value, null);
-        int backed = (int) (key % capacity);
+        int backed = (int) (Math.abs(key) % capacity);
         if (backeds[backed] != null) {
             Node<Long, V> existNode = backeds[backed];
             while (existNode != null) {
@@ -36,7 +36,7 @@ public class LongMapImpl<V> implements LongMap<V> {
     }
 
     public V get(long key) {
-        int backed = (int) (key % capacity);
+        int backed = (int) (Math.abs(key) % capacity);
         Node<Long, V> node = backeds[backed];
         while (node != null) {
             if (node.getKey().equals(key)) {
@@ -48,7 +48,7 @@ public class LongMapImpl<V> implements LongMap<V> {
     }
 
     public V remove(long key) {
-        int backed = (int) (key % capacity);
+        int backed = (int) (Math.abs(key) % capacity);
         Node<Long, V> node = backeds[backed];
         Node<Long, V> previousNode = null;
         while (node != null) {
